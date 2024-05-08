@@ -65,8 +65,8 @@
 	with CTE
 	AS
 	(
-		 SELECT P.ProductID, P.ProductName, count(OD.ProductID) as Products_Sold,
-		 DENSE_RANK() over (order by count(OD.ProductID) desc) as Highest_Quantity_Sold
+		 SELECT P.ProductID, P.ProductName,
+		 DENSE_RANK() over (order by SUM(OD.Quantity) desc) as Highest_Quantity_Sold
 		 from Products as P
 		 join OrderDetails as OD
 		 on P.ProductID = OD.ProductID
